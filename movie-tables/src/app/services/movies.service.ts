@@ -15,6 +15,8 @@ export class MoviesService {
     private _http: HttpClient
   ) { }
 
+  // need to get more pages for requirements
+  // could add pager, cannot sort/filter on server side though unfortunately
   getMovies(): Observable<Movie[]> {
     // Need to update this to pull base URI & API key from config instead of hard code
     const baseUri: string = 'https://api.themoviedb.org/3/movie/top_rated?api_key=8806289684a57014fc8d7bffd258a3f4&language=en-US&page=1';
@@ -27,6 +29,7 @@ export class MoviesService {
         map((response: any) => response.results
           .map((movie: any) =>
             new Movie(
+              movie.id,
               movie.original_title,
               movie.vote_count,
               movie.vote_average,

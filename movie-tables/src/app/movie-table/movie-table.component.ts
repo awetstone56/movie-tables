@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 
@@ -10,8 +9,6 @@ import { MoviesService } from '../services/movies.service';
   styleUrls: ['./movie-table.component.scss']
 })
 export class MovieTableComponent implements OnInit {
-
-
   columnHeaders: string[] = [
     'Title',
     'Vote Count',
@@ -23,27 +20,6 @@ export class MovieTableComponent implements OnInit {
   ];
 
   movies: Movie[] = [];
-
-  // movies: Movie[] = [
-  //   {
-  //     title: 'Lord of the Rings',
-  //     voteCount: 50,
-  //     averageVote: 100,
-  //     popularity: 150,
-  //     poster: 'image here',
-  //     overview: 'A movie about the one ring to rule them all',
-  //     favorite: true
-  //   },
-  //   {
-  //     title: 'Good Will Hunting',
-  //     voteCount: 25,
-  //     averageVote: 50,
-  //     popularity: 75,
-  //     poster: 'image here',
-  //     overview: 'A movie with great quotes',
-  //     favorite: false
-  //   }
-  // ];
 
   voteIsEditable: boolean = false;
   averageVote = new FormControl('');
@@ -57,9 +33,14 @@ export class MovieTableComponent implements OnInit {
     this._moviesService.getMovies().subscribe(movies => this.movies = movies);
   }
 
-  enableVoteEditing(e: any): void {
+  public deleteMovie(movie: Movie) {
+    const index = this.movies.indexOf(movie, 0);
+    if (index > -1)
+      this.movies.splice(index, 1);
+  }
+
+  public enableVoteEditing(e: any): void {
     if (e)
       this.voteIsEditable = !this.voteIsEditable;
   }
-
 }

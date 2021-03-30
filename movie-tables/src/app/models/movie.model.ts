@@ -8,6 +8,7 @@ export class Movie {
     // favorite: boolean;
 
     constructor (
+        public id: number,
         public title: string,
         public voteCount: number,
         public averageVote: number,
