@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Movie } from './models/movie.model';
+import { MoviesService } from './services/movies.service';
+import { retrievedMoviesList } from './state/actions/movie.action';
+import { selectMovies } from './state/selectors/movies.selectors';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'movie-tables';
+  movies$ = this.store.pipe(select(selectMovies));
+  mov: any = select(selectMovies);
+  constructor (
+    private moviesService: MoviesService,
+    private store: Store
+  ) { }
+
+  ngOnInit() {
+    this.moviesService
+      .getMovies()
+      .subscribe((movies) => this.store.dispatch(retrievedMoviesList({ Movie })));
+  }
 }

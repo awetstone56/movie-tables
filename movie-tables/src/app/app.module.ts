@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MovieTableComponent } from './movie-table/movie-table.component';
 import { MoviesService } from './services/movies.service';
+import { moviesReducer } from './state/reducers/movie.reducer';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { MoviesService } from './services/movies.service';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    StoreModule.forRoot({ movies: moviesReducer })
   ],
   providers: [MoviesService],
   bootstrap: [AppComponent]

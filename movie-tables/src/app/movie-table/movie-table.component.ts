@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from '../state/app.state';
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 
@@ -68,7 +70,8 @@ export class MovieTableComponent implements OnInit {
   favorite = new FormControl('');
 
   constructor (
-    private _moviesService: MoviesService
+    private _moviesService: MoviesService,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
