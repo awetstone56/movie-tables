@@ -8,10 +8,15 @@ https://nodejs.org/en/
 When npm/node.js is installed, install the Angular CLI:
 npm install -g @angular/cli
 
-Open up Powershell:
-cd /movie-tables/movie-tables
+navigate to the app:
+cd movie-tables
+
+Install the packages for the project:
+npm install
+
+run the project:
 ng serve --open
 
 A web app should be served to your browser at http://localhost:4200/
 
-For more detailed description please check Angular CLI made ReadMe at movie-tables/movie-tables/README.md 
+For more detailed description on Angular CLI check the Angular CLI made ReadMe at movie-tables/movie-tables/README.md 
