@@ -1,23 +1,29 @@
-<div>
+<div class="form-group">
     <label for="table-sort">Sort by Ascending</label>
-    <select id="table-sort" [ngModel]="sortByColumn" (ngModelChange)="onSortChange($event)">
+    <select class="form-control" style="width:auto" id="table-sort" [ngModel]="sortByColumn"
+        (ngModelChange)="onSortChange($event)">
         <option *ngFor="let header of validSortingHeaders()" [ngValue]="header">{{header.title}}</option>
     </select>
 </div>
 <div>
     <!-- need to add formbuilder to these also enforce numbers vs strings-->
     <label for="table-filter-options">Filter Column:</label>
-    <select id="table-filter-options" [ngModel]="filterByColumn" (ngModelChange)="onFilterColumnChange($event)">
+    <select class="form-control" style="width:auto" id="table-filter-options" [ngModel]="filterByColumn"
+        (ngModelChange)="onFilterColumnChange($event)">
         <option *ngFor="let header of validFilteringHeaders()" [ngValue]="header">{{header.title}}</option>
     </select>
     <label for="table-filter">Filter by Text:</label>
-    <input id="table-filter" type="text" [ngModel]="filterText" (ngModelChange)="onFilterTextChange($event)">
+    <input class="form-control" style="width:auto" id="table-filter" type="text" [ngModel]="filterText"
+        (ngModelChange)="onFilterTextChange($event)">
 </div>
 <div>
-    <table border="1" style="width:100%">
-        <tr>
-            <th *ngFor="let header of columnHeaders">{{header.title}}</th>
-        </tr>
+    <table class="table table-hover" style="width:100%">
+        <thead class="thead-light">
+            <tr>
+                <th *ngFor="let header of columnHeaders">{{header.title}}</th>
+            </tr>
+        </thead>
+
         <tr *ngFor="let movie of movies">
             <td>{{movie.title}}</td>
             <td>{{movie.voteCount}}</td>
@@ -34,7 +40,7 @@
                 <input type="checkbox" [checked]="movie.favorite" (change)="movie.favorite = !movie.favorite">
             </td>
             <td>
-                <button (click)="deleteMovie(movie)">Delete</button>
+                <button class="btn btn-secondary" (click)="deleteMovie(movie)">Delete</button>
             </td>
         </tr>
     </table>
