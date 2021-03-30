@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 
@@ -8,8 +9,7 @@ import { MoviesService } from '../services/movies.service';
   templateUrl: './movie-table.component.html',
   styleUrls: ['./movie-table.component.scss']
 })
-export class MovieTableComponent implements OnInit {
-
+export class MovieTableComponent implements OnInit, OnDestroy {
   // maybe pull this out into separate class so it doesn't take up so much room in component
   columnHeaders: any[] = [
     {
@@ -56,6 +56,8 @@ export class MovieTableComponent implements OnInit {
     },
   ];
 
+  subscription$: Subscription = new Subscription;
+
   sortByColumn = this.columnHeaders[0];
   filterByColumn = this.columnHeaders[0];
   filterText: string = '';
@@ -72,11 +74,15 @@ export class MovieTableComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._moviesService.getMovies().subscribe(movies => {
+    this.subscription$ = this._moviesService.getMovies().subscribe(movies => {
       this.movies = movies;
       this.preFilteredMovies = movies;
       this.onSortChange(this.sortByColumn);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 
   public deleteMovie(movie: Movie) {
@@ -117,17 +123,16 @@ export class MovieTableComponent implements OnInit {
   }
 
   public onFilterTextChange(e: any) {
-    this.movies = this.preFilteredMovies;
-    this.movies = this.movies.filter(movie => {
-      switch (this.filterByColumn) {
+    this.movies = this.preFilteredMovies.filter(movie => {
+      switch (this.filterByColumn.value) {
         case 'title':
           return movie.title.toLowerCase().includes(e.toLowerCase());
         case 'voteCount':
-          return movie.voteCount === +e;
+          return movie.voteCount == +e;
         case 'averageVote':
-          return movie.averageVote === +e;
+          return movie.averageVote == +e;
         case 'popularity':
-          return movie.popularity === +e;
+          return e.movie.popularity == +e;
         case 'overview':
           return movie.overview.toLowerCase().includes(e.toLowerCase());
         default:
@@ -153,4 +158,9 @@ export class MovieTableComponent implements OnInit {
       }
     });
   }
+
+
+  //     private isNonEmptyString(str: string): boolean  {
+  //       return str && str.length > 0; 
+  // }
 }

@@ -5,6 +5,7 @@
     </select>
 </div>
 <div>
+    <!-- need to add formbuilder to these also enforce numbers vs strings-->
     <label for="table-filter-options">Filter Column:</label>
     <select id="table-filter-options" [ngModel]="filterByColumn" (ngModelChange)="onFilterColumnChange($event)">
         <option *ngFor="let header of validFilteringHeaders()" [ngValue]="header">{{header.title}}</option>
