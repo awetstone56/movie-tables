@@ -13,7 +13,9 @@
                 <input *ngIf="voteIsEditable" type="text" [formControl]="averageVote">
             </td>
             <td>{{movie.popularity}}</td>
-            <td>{{movie.poster}}</td>
+            <td>
+                <img [src]="movie.poster" alt="MOVIE POSTER" />
+            </td>
             <td>{{movie.overview}}</td>
             <td>
                 <input type="checkbox" [checked]="movie.favorite" (change)="movie.favorite = !movie.favorite">

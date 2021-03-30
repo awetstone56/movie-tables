@@ -18,6 +18,7 @@ export class MoviesService {
   getMovies(): Observable<Movie[]> {
     // Need to update this to pull base URI & API key from config instead of hard code
     const baseUri: string = 'https://api.themoviedb.org/3/movie/top_rated?api_key=8806289684a57014fc8d7bffd258a3f4&language=en-US&page=1';
+    const photoBaseUri: string = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2';
     const headers = new HttpHeaders()
       .set('content-type', 'application/json;charset=utf-8');
     return this._http
@@ -30,7 +31,7 @@ export class MoviesService {
               movie.vote_count,
               movie.vote_average,
               movie.popularity,
-              movie.poser_path,
+              photoBaseUri + movie.backdrop_path,
               movie.overview,
               movie.vote_average >= 7 ? true : false
             )
