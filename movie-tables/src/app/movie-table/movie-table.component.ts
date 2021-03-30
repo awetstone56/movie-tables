@@ -101,10 +101,13 @@ export class MovieTableComponent implements OnInit {
   // sorts in ascending order
   public onSortChange(e: any) {
     const column: string = e.value;
+    this.sortByColumn = this.columnHeaders.filter(col => col.value === column)[0];
     this.sortChange(column);
   }
 
   public onFilterColumnChange(e: any) {
+    const column: string = e.value;
+    this.filterByColumn = this.columnHeaders.filter(col => col.value === column)[0];
     if (this.filterText !== '') {
       this.onFilterTextChange(this.onFilterTextChange(this.filterText));
     }
@@ -128,7 +131,7 @@ export class MovieTableComponent implements OnInit {
           return movie.title.toLowerCase().includes(e.toLowerCase());
       }
     });
-    this.sortChange(this.sortByColumn);
+    this.sortChange(this.sortByColumn.value);
   }
 
   private sortChange(column: string) {
