@@ -1,0 +1,28 @@
+<p>movie-table works!</p>
+<div>
+    <h3 *ngFor="let movie of movies">{{movie.title}}</h3>
+
+    <table style="width:100%">
+        <tr>
+            <th *ngFor="let header of columnHeaders">{{header}}</th>
+        </tr>
+        <tr *ngFor="let movie of movies">
+            <td>{{movie.title}}</td>
+            <td>{{movie.voteCount}}</td>
+            <!-- <td>{{movie.averageVote}}</td> -->
+            <td>
+                <span *ngIf="!voteIsEditable">{{movie.averageVote}}</span>
+                <input *ngIf="voteIsEditable" type="text" [formControl]="averageVote">
+            </td>
+            <td>{{movie.popularity}}</td>
+            <td>{{movie.poster}}</td>
+            <td>{{movie.overview}}</td>
+            <td>
+                <input type="checkbox" [formControl]="favorite">
+            </td>
+            <td>
+                <button>Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>

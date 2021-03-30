@@ -13,3 +13,5 @@ cd /movie-tables/movie-tables
 ng serve --open
 
 A web app should be served to your browser at http://localhost:4200/
+
+For more detailed description please check Angular CLI made ReadMe at movie-tables/movie-tables/README.md 
