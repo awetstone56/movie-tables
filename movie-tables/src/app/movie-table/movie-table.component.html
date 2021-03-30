@@ -1,7 +1,5 @@
 <p>movie-table works!</p>
 <div>
-    <h3 *ngFor="let movie of movies">{{movie.title}}</h3>
-
     <table style="width:100%">
         <tr>
             <th *ngFor="let header of columnHeaders">{{header}}</th>
@@ -18,7 +16,8 @@
             <td>{{movie.poster}}</td>
             <td>{{movie.overview}}</td>
             <td>
-                <input type="checkbox" [formControl]="favorite">
+                <input type="checkbox" [checked]="movie.favorite" (change)="movie.favorite = !movie.favorite">
+                <!-- <input type="checkbox" [formControl]="favorite"> -->
             </td>
             <td>
                 <button>Delete</button>
