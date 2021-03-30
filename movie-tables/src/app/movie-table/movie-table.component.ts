@@ -80,9 +80,12 @@ export class MovieTableComponent implements OnInit {
   }
 
   public deleteMovie(movie: Movie) {
-    const index = this.movies.indexOf(movie, 0);
+    let index = this.movies.indexOf(movie, 0);
     if (index > -1)
       this.movies.splice(index, 1);
+    index = this.preFilteredMovies.indexOf(movie, 0);
+    if (index > -1)
+      this.preFilteredMovies.splice(index, 1);
   }
 
   public enableVoteEditing(e: any): void {
