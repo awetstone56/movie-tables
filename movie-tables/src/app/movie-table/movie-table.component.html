@@ -14,7 +14,7 @@
     <input id="table-filter" type="text" [ngModel]="filterText" (ngModelChange)="onFilterTextChange($event)">
 </div>
 <div>
-    <table style="width:100%">
+    <table border="1" style="width:100%">
         <tr>
             <th *ngFor="let header of columnHeaders">{{header.title}}</th>
         </tr>
