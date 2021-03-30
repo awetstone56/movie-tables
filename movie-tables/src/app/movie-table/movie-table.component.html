@@ -1,13 +1,25 @@
-<p>movie-table works!</p>
+<div>
+    <label for="table-sort">Sort by Ascending</label>
+    <select id="table-sort" [ngModel]="sortByColumn" (ngModelChange)="onSortChange($event)">
+        <option *ngFor="let header of validSortingHeaders()" [ngValue]="header">{{header.title}}</option>
+    </select>
+</div>
+<div>
+    <label for="table-filter-options">Filter Column:</label>
+    <select id="table-filter-options" [ngModel]="filterByColumn" (ngModelChange)="onFilterChange($event)">
+        <option *ngFor="let header of validFilteringHeaders()" [ngValue]="header">{{header.title}}</option>
+    </select>
+    <label for="table-filter">Filter by Text:</label>
+    <input id="table-filter" type="text">
+</div>
 <div>
     <table style="width:100%">
         <tr>
-            <th *ngFor="let header of columnHeaders">{{header}}</th>
+            <th *ngFor="let header of columnHeaders">{{header.title}}</th>
         </tr>
         <tr *ngFor="let movie of movies">
             <td>{{movie.title}}</td>
             <td>{{movie.voteCount}}</td>
-            <!-- <td>{{movie.averageVote}}</td> -->
             <td>
                 <span *ngIf="!voteIsEditable">{{movie.averageVote}}</span>
                 <input *ngIf="voteIsEditable" type="text" [formControl]="averageVote">
@@ -19,7 +31,6 @@
             <td>{{movie.overview}}</td>
             <td>
                 <input type="checkbox" [checked]="movie.favorite" (change)="movie.favorite = !movie.favorite">
-                <!-- <input type="checkbox" [formControl]="favorite"> -->
             </td>
             <td>
                 <button (click)="deleteMovie(movie)">Delete</button>
