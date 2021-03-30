@@ -61,6 +61,7 @@ export class MovieTableComponent implements OnInit {
   filterText: string = '';
 
   movies: Movie[] = [];
+  preFilteredMovies: Movie[] = [];
 
   voteIsEditable: boolean = false;
   averageVote = new FormControl('');
@@ -73,6 +74,7 @@ export class MovieTableComponent implements OnInit {
   ngOnInit(): void {
     this._moviesService.getMovies().subscribe(movies => {
       this.movies = movies;
+      this.preFilteredMovies = movies;
       this.onSortChange(this.sortByColumn);
     });
   }
@@ -98,7 +100,38 @@ export class MovieTableComponent implements OnInit {
 
   // sorts in ascending order
   public onSortChange(e: any) {
-    const column = e.value;
+    const column: string = e.value;
+    this.sortChange(column);
+  }
+
+  public onFilterColumnChange(e: any) {
+    if (this.filterText !== '') {
+      this.onFilterTextChange(this.onFilterTextChange(this.filterText));
+    }
+  }
+
+  public onFilterTextChange(e: any) {
+    this.movies = this.preFilteredMovies;
+    this.movies = this.movies.filter(movie => {
+      switch (this.filterByColumn) {
+        case 'title':
+          return movie.title.toLowerCase().includes(e.toLowerCase());
+        case 'voteCount':
+          return movie.voteCount === +e;
+        case 'averageVote':
+          return movie.averageVote === +e;
+        case 'popularity':
+          return movie.popularity === +e;
+        case 'overview':
+          return movie.overview.toLowerCase().includes(e.toLowerCase());
+        default:
+          return movie.title.toLowerCase().includes(e.toLowerCase());
+      }
+    });
+    this.sortChange(this.sortByColumn);
+  }
+
+  private sortChange(column: string) {
     this.movies.sort((a, b) => {
       switch (column) {
         case 'title':
@@ -113,9 +146,5 @@ export class MovieTableComponent implements OnInit {
           return (a.title < b.title ? -1 : 1);
       }
     });
-  }
-
-  public onFilterChange(e: any) {
-
   }
 }

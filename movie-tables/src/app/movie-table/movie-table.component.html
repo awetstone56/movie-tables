@@ -6,11 +6,11 @@
 </div>
 <div>
     <label for="table-filter-options">Filter Column:</label>
-    <select id="table-filter-options" [ngModel]="filterByColumn" (ngModelChange)="onFilterChange($event)">
+    <select id="table-filter-options" [ngModel]="filterByColumn" (ngModelChange)="onFilterColumnChange($event)">
         <option *ngFor="let header of validFilteringHeaders()" [ngValue]="header">{{header.title}}</option>
     </select>
     <label for="table-filter">Filter by Text:</label>
-    <input id="table-filter" type="text">
+    <input id="table-filter" type="text" [ngModel]="filterText" (ngModelChange)="onFilterTextChange($event)">
 </div>
 <div>
     <table style="width:100%">
